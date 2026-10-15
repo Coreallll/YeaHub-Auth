@@ -1,0 +1,136 @@
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1 1 64%;
+    width: 100%;
+}
+.shadowWrapper {
+    padding: 24px;
+    border-radius: 24px;
+    background-color: var(--white900);
+    box-shadow: 0 4px 10px 0 rgba(106, 99, 118, 0.1);
+}
+.titleWrapper {
+    display: flex;
+    gap: 20px;
+    max-width: 800px;
+}
+.titleImage {
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
+}
+
+.mainTitle {
+    font-size: 24px;
+    line-height: 120%;
+    color: var(--black800);
+}
+.description {
+    color: var(--black700);
+}
+.buttonsFlex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.pageNavBtn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 17px;
+    font-weight: 700;
+    color: var(--black800);
+    &.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.alignCenter {
+    display: flex;
+    justify-content: center;
+}
+.answerTitle {
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 120%;
+    font-weight: 500;
+}
+.longAnswerWrapper {
+    position: relative;
+    overflow: hidden;
+    transition: height 0.3s ease;
+
+    code {
+        white-space: normal !important;
+    }
+}
+.gradient {
+    position: absolute;
+    bottom: -30px;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) -25.71%, #FFFFFF 40.02%);
+}
+.iconArrowDown {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease-in-out;
+
+    &.active {
+        transform: rotate(180deg);
+        transition: transform 0.2s ease-in-out;
+    }
+}
+.openBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    &.active {
+        margin-top: 20px;
+    }
+}
+.returnBtn {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    font-weight: 500;
+    color: var(--purple700);
+}
+@media(max-width: 768px) {
+    .shadowWrapper {
+        padding: 10px;
+        border-radius: 24px;
+    }
+    .titleWrapper {
+        flex-direction: column;
+    }
+    .titleImage {
+        align-self: center;
+        width: 320px;
+        height: 320px;
+    }
+    .buttonsFlex {
+        gap: 10px;
+    }
+    .pageNavBtn {
+        padding: 0;
+        font-weight: 400;
+        font-size: 14px;
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

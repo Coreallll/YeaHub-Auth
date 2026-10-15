@@ -1,0 +1,44 @@
+.collectionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+.listEmpty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .emptyTitle {
+        font-size: 20px;
+    }
+    .clearFilter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        padding: 15px;
+        font-weight: 600;
+        height: 48px;
+        border: 1px solid var(--purple700);
+        border-radius: 12px;
+        color: var(--purple700);
+
+        &:hover {
+            background-color: var(--purple700);
+            color: var(--white900);
+        }
+        &:active {
+            opacity: 0.8;
+        }
+    }
+}
+@media(max-width: 1024px) {
+    .collectionsList {
+        gap: 20px;
+    }
+}

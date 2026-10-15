@@ -1,0 +1,208 @@
+.header {
+    margin-bottom: 40px;
+    padding: 16px;
+    background-color: var(--white900);
+}
+.headerWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 52px;
+}
+.headerLogoWrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.headerLogo {
+    width: 33px;
+    height: 33px;
+}
+.nav {
+    @media(max-width: 1024px) {
+        display: none;
+    }
+}
+.navList {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.navLink {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    width: 100%;
+    min-height: 38px;
+    white-space: nowrap;
+    font-size: 16px;
+    border-radius: 12px;
+    color: var(--black900);
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+
+    &.navLinkActive, &:hover {
+        background-color: var(--black25);
+        color: var(--purple800);
+        transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+    }
+}
+
+.authButtons {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+.authLink {
+    font-weight: 600;
+    color: var(--purple700);
+}
+.authLinkFilled {
+    padding: 12px 29px;
+    border-radius: 12px;
+    background-color: var(--purple700);
+    color: var(--white900);
+}
+.navWrapMobile {
+    position: relative;
+    @media(min-width: 1025px) {
+        display: none;
+    }
+}
+.navWrapMobileBtn {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 12px;
+    transition: color 0.1s ease-in-out;
+
+    &:hover, &.opened {
+        background-color: var(--black25);
+        color: var(--purple700);
+        transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+        .iconArrowDown {
+            path {
+                stroke: var(--purple700);
+            }
+        }
+    }
+    &.opened {
+        .iconArrowDown {
+            transform: rotate(180deg);
+            transition: transform 0.2s ease-in-out;
+        }
+    }
+}
+.iconArrowDown {
+    transition: transform 0.2s ease-in-out;
+    path {
+        stroke: #303030;
+    }
+}
+.authWrapMobile {
+    position: relative;
+    @media(min-width: 1025px) {
+        display: none;
+    }
+}
+.burgerBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    transition: background-color 0.1s ease-in-out;
+
+    &:hover {
+        background-color: var(--black25);
+        transition: background-color 0.1s ease-in-out;
+    }
+    &:active {
+        background-color: var(--black50);
+        transition: background-color 0.1s ease-in-out;
+    }
+
+    .iconBurger {
+        width: 24px;
+    }
+}
+
+@media(max-width: 1024px) {
+    .header {
+        margin-bottom: 24px;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--black50);
+    }
+    .headerLeft {
+        gap: 34px;
+    }
+    .nav {
+        display: none;
+    }
+    .authButtons {
+        display: none;
+    }
+    .mobileNavigation {
+        display: block;
+
+        .navList {
+            flex-direction: column;
+            gap: 4px;
+
+            li {
+                width: 100%;
+            }
+        }
+        .navLink {
+            display: flex;
+            padding: 6px 10px;
+            min-width: 192px;
+            font-size: 14px;
+            border-radius: 12px;
+            transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+
+            &:hover {
+                background-color: var(--black25);
+                color: var(--purple800);
+                transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+            }
+        }
+    }
+    .authWrapMobile {
+        .authDropdown {
+            right: 0;
+        }
+    }
+    .mobileAuthButtons {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .authLink, .authLinkFilled {
+        padding: 6px 10px;
+        font-weight: 500;
+        width: 100%;
+        border-radius: 12px;
+        background-color: transparent;
+        color: var(--black900);
+        transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+
+        &:hover {
+            background-color: var(--black25);
+            color: var(--purple800);
+            transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+        }
+    }
+}
+@media(max-width: 768px) {
+    .headerLeft {
+        gap: 20px;
+    }
+    .headerLogoText {
+        display: none;
+    }
+}

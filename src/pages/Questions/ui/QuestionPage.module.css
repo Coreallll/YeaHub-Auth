@@ -1,0 +1,113 @@
+.mainTitle {
+    font-size: 24px;
+}
+.divider {
+    margin-top: 16px;
+    margin-bottom: 24px;
+    width: 100%;
+    height: 1px;
+    background-color: var(--black50);
+}
+.contentTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.filtersButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--black200);
+    border-radius: 8px;
+    transition: background-color 0.1s ease-in-out;
+
+    &:hover {
+        background-color: var(--black25);
+        transition: background-color 0.1s ease-in-out;
+    }
+    &:active {
+        background-color: var(--black50);
+        transition: background-color 0.1s ease-in-out;
+    }
+
+    @media(min-width: 1025px) {
+        display: none;
+    }
+}
+.drawerSidebar {
+    display: none;
+}
+@media(max-width: 1024px) {
+    .main {
+        margin-bottom: 80px;
+    }
+    .mainContent {
+        padding: 16px;
+    }
+    .divider {
+        margin-bottom: 20px;
+    }
+    .drawerSidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px;
+        max-width: 328px;
+        height: 100%;
+        background-color: var(--white900);
+        box-shadow: 0px 4px 10px 0px rgba(106, 99, 118, 0.1);
+        overflow-x: hidden;
+        overflow-y: auto;
+        transform: translateX(110%);
+        transition: transform 0.3s ease-in-out;
+
+        &.drawerOpen {
+            transform: translateX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .fixedSidebar {
+            display: flex;
+            padding: 0;
+
+            border-radius: unset;
+        }
+    }
+    .closeBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        width: 30px;
+        height: 30px;
+
+        img {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+        }
+    }
+}
+@media(max-width: 768px) {
+    .contentTitle {
+        gap: 16px;
+    }
+    .mainTitle {
+        font-size: 20px;
+    }
+    .answerWrapper {
+        font-size: 14px;
+    }
+    .drawerSidebar {
+        width: 100%;
+        max-width: 100%;
+        max-height: 50vh;
+        transform: translateX(0%) translateY(-110%);
+        transition: transform 0.3s ease-in-out;
+    }
+}

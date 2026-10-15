@@ -1,0 +1,23 @@
+.filterButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 12px;
+    min-width: 40px;
+    height: 42px;
+    border: 1px solid var(--black200);
+    border-radius: 12px;
+    transition: border-color 0.1s ease-in-out;
+
+    img {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+    }
+
+    &:hover {
+        border-color: var(--purple700);
+        transition: border-color 0.1s ease-in-out;
+    }
+}

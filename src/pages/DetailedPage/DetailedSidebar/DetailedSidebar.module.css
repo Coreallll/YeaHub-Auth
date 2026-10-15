@@ -1,0 +1,23 @@
+.ratingWrapper {
+    margin: 0;
+    padding: 0;
+    gap: 16px;
+}
+.keywordList {
+    display: flex;
+    align-items: center;
+    gap: 14px 10px;
+}
+.keyword {
+    color: var(--purple700);
+}
+.author {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.authorName {
+    color: var(--purple700);
+}

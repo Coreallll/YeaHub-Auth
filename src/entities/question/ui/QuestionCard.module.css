@@ -1,0 +1,132 @@
+.cardWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    line-height: 130%;
+    background-color: var(--white900);
+    box-shadow: 0 4px 10px 0 #6a63761a;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.questionTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+}
+.questionTitleArrow {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s ease-in-out;
+}
+.cardOpen .questionTitleArrow {
+    transform: rotate(180deg);
+    transition: transform 0.2s ease-in-out;
+}
+.questionTitleText {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+
+    &::before {
+        content: '';
+        display: block;
+        min-width: 8px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: var(--brand);
+    }
+}
+.answerWrapper {
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+.answer {
+    p {
+        font-size: 16px;
+        line-height: 130%;
+    }
+    code:not(pre code) {
+        padding: 2px 4px !important;
+        white-space: normal !important;
+        font-size: 14px !important;
+        border-radius: 3px !important;
+        background: #f0f0f0 !important;
+        color: #f6462f !important;
+    }
+}
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 24px;
+    padding-top: 24px;
+}
+.ratingWrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    background-color: #F8F8F8;
+}
+.ratingText {
+    color: var(--black800);
+}
+.ratingValue {
+    padding: 2px 4px;
+    border-radius: 4px;
+    background-color: var(--purple700);
+    color: var(--white900);
+}
+.detailedBtn {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    margin-left: auto;
+    max-width: max-content;
+    font-weight: 600;
+    width: 100%;
+    color: var(--purple700);
+
+    &:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        opacity: 0.8;
+        transition: opacity 0.1s ease-in-out;
+    }
+    &:active {
+        opacity: 0.6;
+        transition: opacity 0.1s ease-in-out;
+    }
+}
+.detailedBtnIcon {
+    width: 24px;
+    height: 24px;
+}
+
+@media(max-width: 1024px) {
+    .cardWrapper {
+        padding: 16px;
+    }
+}
+@media(max-width: 768px) {
+    .questionTitleText {
+        font-size: 16px;
+    }
+    .answer {
+        font-size: 14px;
+    }
+    .rating {
+        padding-top: 16px;
+        margin-bottom: 16px;
+    }
+    .ratingWrap {
+        font-size: 12px;
+    }
+}
