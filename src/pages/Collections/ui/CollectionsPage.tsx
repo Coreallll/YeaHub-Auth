@@ -1,8 +1,8 @@
 import { usePagination } from "@/shared/lib/usePagination.ts";
 import { useCollections } from "@/pages/Collections/model/useCollections.ts";
 import CollectionTitle from "@/pages/Collections/ui/CollectionTitle.tsx";
-import { CollectionsList } from "@/widgets/collections";
-import Pagination from "@/shared/ui/Pagination/Pagination.tsx";
+import { CollectionsList } from "@/widgets/Collections";
+import Pagination from "@/shared/ui/Pagination/ui/Pagination.tsx";
 import CollectionsSidebar from "@/pages/Collections/ui/CollectionsSidebar.tsx";
 import styles from "./CollectionsPage.module.css";
 

@@ -1,10 +1,9 @@
 import styles from "./QuestionPage.module.css";
-import Pagination from "@/shared/ui/Pagination/Pagination.tsx";
-import { QuestionsList } from "@/widgets/questions/QuestionsList/index.ts";
-import QuestionsTitle from "@/widgets/questions/ui/QuestionsTitle.tsx";
+import { QuestionsList } from "@/widgets/Questions/QuestionsList/index.ts";
 import { useQuestions } from "@/entities/question/model/useQuestions.ts";
-import QuestionsSidebar from "@/widgets/questions/ui/QuestionsSidebar.tsx";
 import { usePagination } from "@/shared/lib/usePagination.ts";
+import { QuestionsSidebar, QuestionsTitle } from "@/widgets/Questions";
+import { Pagination } from "@/shared/ui/Pagination";
 
 export default function QuestionsPage() {
   const {

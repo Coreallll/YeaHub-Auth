@@ -107,6 +107,55 @@
     font-weight: 500;
     color: var(--purple700);
 }
+.drawerSidebar {
+    display: none;
+}
+@media(max-width: 1024px) {
+    .drawerSidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px;
+        max-width: 328px;
+        height: 100%;
+        background-color: var(--white900);
+        box-shadow: 0px 4px 10px 0px rgba(106, 99, 118, 0.1);
+        overflow-x: hidden;
+        overflow-y: auto;
+        transform: translateX(110%);
+        transition: transform 0.3s ease-in-out;
+
+        &.drawerOpen {
+            transform: translateX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .fixedSidebar {
+            display: flex;
+            padding: 0;
+
+            border-radius: unset;
+        }
+    }
+    .closeBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        width: 30px;
+        height: 30px;
+
+        img {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+        }
+    }
+}
+
 @media(max-width: 768px) {
     .shadowWrapper {
         padding: 10px;
@@ -132,5 +181,12 @@
             width: 20px;
             height: 20px;
         }
+    }
+    .drawerSidebar {
+        width: 100%;
+        max-width: 100%;
+        max-height: 50vh;
+        transform: translateX(0%) translateY(-110%);
+        transition: transform 0.3s ease-in-out;
     }
 }

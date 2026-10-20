@@ -3,11 +3,14 @@ import { StrictMode } from "react";
 import { Provider } from "react-redux";
 import store from "@/app/appStore.ts";
 import BaseLayout from "@/app/layouts/BaseLayout.tsx";
+import AuthInitializer from "@/app/providers/AuthInitializer.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <BaseLayout />
+      <AuthInitializer>
+        <BaseLayout />
+      </AuthInitializer>
     </Provider>
   </StrictMode>,
 );

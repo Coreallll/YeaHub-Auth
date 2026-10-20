@@ -1,0 +1,110 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 150%;
+}
+.input {
+    padding: 14px 16px;
+    height: 48px;
+    border: 1px solid var(--black50);
+    border-radius: 12px;
+
+    &::placeholder {
+        color: #BBBBC8;
+    }
+
+    &.error {
+        border-color: var(--red700);
+    }
+
+    &:hover, &:focus, &:focus-visible {
+        border-color: var(--purple500);
+        outline: none;
+    }
+}
+.forgetPassLink {
+    margin-top: -2px;
+    margin-left: auto;
+    font-size: 14px;
+    color: var(--purple700);
+}
+.submitBtn {
+    margin-top: 20px;
+    padding: 14px;
+    height: 53px;
+    font-size: 18px;
+    border-radius: 12px;
+    background-color: var(--purple700);
+    color: var(--white900);
+}
+.fieldError {
+    margin-top: -4px;
+    font-size: 12px;
+    line-height: 120%;
+    color: var(--red700);
+}
+.checkboxList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+    line-height: 120%;
+    color: var(--gray);
+
+    .fieldError {
+        margin-top: 0;
+    }
+}
+.checkboxDescription {
+    margin-bottom: 8px;
+}
+.checkboxField {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+    input {
+        display: none;
+    }
+
+    &::before {
+        content: '';
+        position: relative;
+        width: 20px;
+        height: 20px;
+        border: 1px solid var(--black50);
+        border-radius: 4px;
+        background-color: #FFFFFF;
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+    }
+
+    &:has(input:checked)::before {
+        border-color: var(--purple700);
+        background-color: var(--purple700);
+    }
+    &:has(input:checked)::after {
+        background: url("@/shared/assets/icons/checkWhite.svg") no-repeat center / 16px;
+    }
+    &.error::before {
+        border-color: var(--red700);
+    }
+}
+
+.checkboxWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

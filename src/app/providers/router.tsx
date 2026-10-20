@@ -1,18 +1,19 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Layout from "@/app/layouts/Layout.tsx";
-import CollectionsPage from "@/pages/Collections/ui/CollectionsPage.tsx";
-import QuizPage from "@/pages/Quiz/ui/QuizPage.tsx";
-import QuizQuestionsPage from "@/pages/Quiz/ui/QuizQuestionsPage.tsx";
-import QuizStatisticPage from "@/pages/Quiz/ui/QuizStatisticPage.tsx";
-import { DetailedCollectionPage } from "@/pages/DetailedPage/DetailedCollectionPage";
-import { DetailedQuestionPage } from "@/pages/DetailedPage/DetailedQuestionPage";
-import NotFoundPage from "@/pages/NotFound/ui/NotFoundPage.tsx";
-import QuestionsPage from "@/pages/Questions/ui/QuestionsPage.tsx";
+import MainLayout from "@/app/layouts/MainLayout.tsx";
+import { LoginPage } from "@/pages/Login";
+import { RegisterPage } from "@/pages/Register";
+import { DetailedCollectionPage, DetailedQuestionPage } from "@/pages/DetailedPage";
+import { NotFoundPage } from "@/pages/NotFound";
+import { CollectionsPage } from "@/pages/Collections";
+import { QuizPage, QuizQuestionsPage, QuizStatisticPage } from "@/pages/Quiz";
+import AuthLayout from "@/app/layouts/AuthLayout/AuthLayout.tsx";
+import { QuestionsPage } from "@/pages/Questions";
+import { ForgotPasswordPage } from "@/pages/ForgotPassword";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <MainLayout />,
     children: [
       {
         index: true,
@@ -24,19 +25,19 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/questions",
+        path: "/Questions",
         element: <QuestionsPage />,
       },
       {
-        path: "/collections",
+        path: "/Collections",
         element: <CollectionsPage />,
       },
       {
-        path: "/collections/:collectionId",
+        path: "/Collections/:collectionId",
         element: <DetailedCollectionPage />,
       },
       {
-        path: "/collections/:collectionId/questions/:questionId",
+        path: "/Collections/:collectionId/Questions/:questionId",
         element: <DetailedQuestionPage />,
       },
       {
@@ -44,7 +45,7 @@ export const router = createBrowserRouter([
         element: <QuizPage />,
       },
       {
-        path: "/quiz/questions",
+        path: "/quiz/Questions",
         element: <QuizQuestionsPage />,
       },
       {
@@ -54,6 +55,33 @@ export const router = createBrowserRouter([
       {
         path: "*",
         element: <NotFoundPage />,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <Navigate
+            to="login"
+            replace
+          />
+        ),
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/register",
+        element: <RegisterPage />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPasswordPage />,
       },
     ],
   },

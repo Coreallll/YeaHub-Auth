@@ -1,8 +1,7 @@
 import stylesSidebar from "@/shared/ui/Sidebar/SidebarLayout.module.css";
 import type { Collection } from "@/entities/collection/model/collectionTypes.ts";
-import DetailedSidebarTags from "@/pages/DetailedPage/DetailedSidebar/DetailedSidebarTags.tsx";
-import DetailedSidebarAuthor from "@/pages/DetailedPage/DetailedSidebar/DetailedSidebarAuthor.tsx";
 import { FilterSection } from "@/features/Filters";
+import { DetailedSidebarAuthor, DetailedSidebarTags } from "@/pages/DetailedPage";
 
 interface DetailedCollectionSidebarProps {
   collection: Collection;

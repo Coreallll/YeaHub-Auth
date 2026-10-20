@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetCollectionByIdQuery } from "@/pages/DetailedPage/DetailedCollectionPage/api/collectionByIdApi.ts";
 import DetailedCollectionPageSkeleton from "@/pages/DetailedPage/DetailedCollectionPage/ui/DetailedCollectionPageSkeleton.tsx";
 import DetailedCollectionTitle from "@/pages/DetailedPage/DetailedCollectionPage/ui/DetailedCollectionTitle.tsx";
-import { Questions } from "@/widgets/questions";
+import { Questions } from "@/widgets/Questions";
 import DetailedCollectionPageSidebar from "@/pages/DetailedPage/DetailedCollectionPage/ui/DetailedCollectionPageSidebar.tsx";
 
 export default function DetailedCollectionPage() {
