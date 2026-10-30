@@ -9,7 +9,6 @@ interface RefreshResponse {
   access_token: string;
 }
 
-// 1. Базовый запрос
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://api.yeatwork.ru/",
   credentials: "include",
@@ -38,7 +37,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   api,
   extraOptions,
 ) => {
-  // Выполняем исходный запрос
   let result = await baseQuery(args, api, extraOptions);
 
   const url = (typeof args === "string" ? args : args.url).replace(/^\/+/, "").split("?")[0] ?? "";
@@ -73,7 +71,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   tokenStorage.remove();
 
   api.dispatch(sessionExpired());
-  // api.dispatch(baseApi.util.resetApiState());
 
   return result;
 };

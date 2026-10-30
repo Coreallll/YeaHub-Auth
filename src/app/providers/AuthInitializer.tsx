@@ -32,7 +32,6 @@ export default function AuthInitializer({ children }: AuthInitializerProps) {
 
         tokenStorage.remove();
         dispatch(loggedOut());
-        // dispatch(baseApi.util.resetApiState());
       }
     };
     initializeAuth();
