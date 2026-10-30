@@ -7,18 +7,32 @@ import { useQuestions } from "@/entities/question/model/useQuestions.ts";
 import { usePagination } from "@/shared/lib/usePagination.ts";
 import { QuestionsTitle } from "@/widgets/Questions";
 import { Pagination } from "@/shared/ui/Pagination";
+import { useAppSelector } from "@/shared/lib/hooks.ts";
 
 export interface QuestionsProps {
   collection: Collection;
 }
 
 export default function Questions({ collection }: QuestionsProps) {
-  const { questionsData, isQuestionsError, totalQuestionsPages, isQuestionsLoading } =
-    useQuestions();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+
+  const { questionsData, isQuestionsError, totalQuestionsPages, isQuestionsLoading } = useQuestions(
+    { isFree: collection.isFree },
+  );
 
   const { currentPage, handleNextPage, handlePrevPage, handlePageClick } = usePagination();
 
   const navigate = useNavigate();
+
+  console.log("Отладка вопросов:", {
+    isQuestionsError,
+    isQuestionsLoading,
+    isAuthenticated,
+    isFree: collection.isFree,
+    questionsData,
+    currentPage,
+    totalQuestionsPages,
+  });
 
   return (
     <div className="mainContent">
@@ -28,9 +42,9 @@ export default function Questions({ collection }: QuestionsProps) {
         <p>При загрузке вопросов произошла ошибка</p>
       ) : isQuestionsLoading ? (
         <QuestionsListSkeleton />
-      ) : collection.isFree === false ? (
+      ) : !collection.isFree ? (
         <ul className={stylesQuestionsList.questionList}>
-          <div className={stylesQuestionsList.listEmpty}>
+          <li className={stylesQuestionsList.listEmpty}>
             <h2 className={stylesQuestionsList.emptyTitle}>
               Контент предназначен только для участников
             </h2>
@@ -40,7 +54,7 @@ export default function Questions({ collection }: QuestionsProps) {
             >
               Вернуться назад
             </button>
-          </div>
+          </li>
         </ul>
       ) : (
         <>

@@ -9,6 +9,8 @@ import { QuizPage, QuizQuestionsPage, QuizStatisticPage } from "@/pages/Quiz";
 import AuthLayout from "@/app/layouts/AuthLayout/AuthLayout.tsx";
 import { QuestionsPage } from "@/pages/Questions";
 import { ForgotPasswordPage } from "@/pages/ForgotPassword";
+import RequireAuth from "@/app/router/RequireAuth.tsx";
+import ProfilePage from "@/pages/Profile/ui/ProfilePage.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -56,21 +58,20 @@ export const router = createBrowserRouter([
         path: "*",
         element: <NotFoundPage />,
       },
+      {
+        element: <RequireAuth />,
+        children: [
+          {
+            path: "/profile",
+            element: <ProfilePage />,
+          },
+        ],
+      },
     ],
   },
   {
-    path: "/auth",
     element: <AuthLayout />,
     children: [
-      {
-        index: true,
-        element: (
-          <Navigate
-            to="login"
-            replace
-          />
-        ),
-      },
       {
         path: "/login",
         element: <LoginPage />,

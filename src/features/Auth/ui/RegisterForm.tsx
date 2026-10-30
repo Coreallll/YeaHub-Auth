@@ -5,14 +5,17 @@ import type { RegisterFormValues } from "@/features/Auth/model/types.ts";
 import { useForm, useWatch } from "react-hook-form";
 import { tokenStorage } from "@/shared/lib/authToken.ts";
 import { loggedIn } from "@/features/Auth/model/authSlice.ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "@/features/Auth/ui/Form.module.css";
+import eyeSlash from "@/shared/assets/icons/eyeSlash.svg";
 
 export default function RegisterForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [registerUser, { isLoading }] = useRegisterMutation();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
   const {
     register,
@@ -82,36 +85,60 @@ export default function RegisterForm() {
       </label>
       <label className={styles.field}>
         <span>Пароль</span>
-        <input
-          type="password"
-          placeholder="Введите пароль"
-          className={`${styles.input} ${errors.password ? styles.error : ""}`}
-          {...register("password", {
-            required: "Введите пароль",
-            minLength: {
-              value: 8,
-              message: "Минимум 8 символов",
-            },
-            pattern: {
-              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])\S+$/,
-              message:
-                "Пароль должен содержать заглавные и строчные буквы, цифры и специальные символы",
-            },
-          })}
-        />
+        <div className={styles.inputWrapper}>
+          <input
+            type={isPasswordVisible ? "text" : "password"}
+            placeholder="Введите пароль"
+            className={`${styles.input} ${errors.password ? styles.error : ""}`}
+            {...register("password", {
+              required: "Введите пароль",
+              minLength: {
+                value: 8,
+                message: "Минимум 8 символов",
+              },
+              pattern: {
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])\S+$/,
+                message:
+                  "Пароль должен содержать заглавные и строчные буквы, цифры и специальные символы",
+              },
+            })}
+          />
+          <button
+            type="button"
+            className={styles.visibilityButton}
+            onClick={() => setIsPasswordVisible((prev) => !prev)}
+          >
+            <img
+              src={eyeSlash}
+              alt=""
+            />
+          </button>
+        </div>
         {errors.password && <p className={styles.fieldError}>{errors.password.message}</p>}
       </label>
       <label className={styles.field}>
         <span>Подтвердите пароль</span>
-        <input
-          type="password"
-          placeholder="Введите пароль"
-          className={`${styles.input} ${errors.confirmPassword ? styles.error : ""}`}
-          {...register("confirmPassword", {
-            required: "Подтвердите пароль",
-            validate: (value) => value === getValues("password") || "Пароли не совпадают",
-          })}
-        />
+        <div className={styles.inputWrapper}>
+          <input
+            type={isConfirmPasswordVisible ? "text" : "password"}
+            placeholder="Введите пароль"
+            className={`${styles.input} ${errors.confirmPassword ? styles.error : ""}`}
+            {...register("confirmPassword", {
+              required: "Подтвердите пароль",
+              validate: (value) => value === getValues("password") || "Пароли не совпадают",
+            })}
+          />
+          <button
+            type="button"
+            className={styles.visibilityButton}
+            onClick={() => setIsConfirmPasswordVisible((prev) => !prev)}
+          >
+            <img
+              src={eyeSlash}
+              alt=""
+            />
+          </button>
+        </div>
         {errors.confirmPassword && (
           <p className={styles.fieldError}>{errors.confirmPassword.message}</p>
         )}

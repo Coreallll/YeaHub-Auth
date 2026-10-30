@@ -4,23 +4,37 @@ import { usePagination } from "@/shared/lib/usePagination.ts";
 import { useFilters } from "@/features/Filters/model/useFilters.ts";
 import { useGetQuestionsQuery } from "@/pages/Questions/api/questionsApi.ts";
 
-export const useQuestions = () => {
+interface UseQuestionsOptions {
+  isFree?: boolean;
+}
+
+export const useQuestions = ({ isFree }: UseQuestionsOptions) => {
   const { currentPage, cardsOnPage, changePage } = usePagination();
+
   const { specFilter, skillsFilter, complexityFilter, rateFilter } = useFilters();
+
   const { collectionId } = useParams();
 
   const {
     data: questions,
-    isLoading: isQuestionsLoading,
+    isLoading,
     isError: isQuestionsError,
     isFetching: isQuestionsFetching,
-  } = useGetQuestionsQuery({
-    specFilter,
-    skillsFilter,
-    complexityFilter,
-    rateFilter,
-    collectionId: Number(collectionId),
-  });
+  } = useGetQuestionsQuery(
+    {
+      specFilter,
+      skillsFilter,
+      complexityFilter,
+      rateFilter,
+      collectionId: Number(collectionId),
+      isPrivate: false,
+    },
+    {
+      skip: isFree !== true,
+    },
+  );
+
+  const isQuestionsLoading = isFree === undefined || isLoading;
 
   const totalQuestionsPages = questions ? Math.ceil(questions.length / cardsOnPage) : 0;
 
@@ -30,10 +44,11 @@ export const useQuestions = () => {
 
   useEffect(() => {
     if (!questions) return;
+
     if (totalQuestionsPages > 0 && currentPage > totalQuestionsPages) {
       changePage(totalQuestionsPages);
     }
-  }, [currentPage, totalQuestionsPages, isQuestionsFetching, questions, changePage]);
+  }, [currentPage, totalQuestionsPages, questions, changePage]);
 
   return {
     questionsData: questionsData ?? [],

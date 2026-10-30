@@ -1,30 +1,46 @@
 import { useAppDispatch } from "@/shared/lib/hooks.ts";
-import { Link, useNavigate } from "react-router-dom";
-import { type LoginRequest, useLoginMutation } from "@/features/Auth/api/authApi.ts";
-import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { type LoginFormValues, useLoginMutation } from "@/features/Auth/api/authApi.ts";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { tokenStorage } from "@/shared/lib/authToken.ts";
 import { loggedIn } from "@/features/Auth/model/authSlice.ts";
 import styles from "./Form.module.css";
+import { useState } from "react";
+import eyeSlash from "@/shared/assets/icons/eyeSlash.svg";
 
 export default function LoginForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const routeState = location.state as { from?: string } | null;
+
+  const from =
+    typeof routeState?.from === "string" &&
+    routeState.from.startsWith("/") &&
+    !routeState.from.startsWith("//")
+      ? routeState.from
+      : "/";
 
   const [login, { isLoading, error }] = useLoginMutation();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginRequest>({ mode: "onBlur", reValidateMode: "onChange" });
+  } = useForm<LoginFormValues>({ mode: "onBlur", reValidateMode: "onChange" });
 
-  const onSubmit = async (values: LoginRequest) => {
+  const onSubmit: SubmitHandler<LoginFormValues> = async (values) => {
     try {
-      const response = await login(values).unwrap();
+      const response = await login({
+        username: values.email,
+        password: values.password,
+      }).unwrap();
 
       tokenStorage.set(response.access_token);
       dispatch(loggedIn());
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {
       console.error("Ошибка авторизации", error);
     }
@@ -53,16 +69,28 @@ export default function LoginForm() {
       </label>
       <label className={styles.field}>
         <span>Пароль</span>
-        <input
-          type="password"
-          placeholder="Введите пароль"
-          className={`${styles.input} ${errors.password ? styles.error : ""}`}
-          {...register("password", { required: "Введите пароль" })}
-        />
+        <div className={styles.inputWrapper}>
+          <input
+            type={isPasswordVisible ? "text" : "password"}
+            placeholder="Введите пароль"
+            className={`${styles.input} ${errors.password ? styles.error : ""}`}
+            {...register("password", { required: "Введите пароль" })}
+          />
+          <button
+            type="button"
+            className={styles.visibilityButton}
+            onClick={() => setIsPasswordVisible((prev) => !prev)}
+          >
+            <img
+              src={eyeSlash}
+              alt=""
+            />
+          </button>
+        </div>
         {errors.password && <span className={styles.fieldError}>{errors.password.message}</span>}
         <Link
           className={styles.forgetPassLink}
-          to={""}
+          to={"/auth/forgot-password"}
         >
           Забыли пароль?
         </Link>

@@ -8,10 +8,13 @@ interface QuestionFilters {
   rateFilter?: string[];
   collectionId?: number;
 }
+interface GetQuestionsArgs extends QuestionFilters {
+  isPrivate: boolean;
+}
 
 export const questionsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getQuestions: builder.query<Question[], QuestionFilters>({
+    getQuestions: builder.query<Question[], GetQuestionsArgs>({
       async queryFn(
         { specFilter, skillsFilter, complexityFilter, rateFilter, collectionId },
         _api,
@@ -20,52 +23,40 @@ export const questionsApi = baseApi.injectEndpoints({
       ) {
         const limit = 100;
 
-        const firstResult = await baseQuery({
-          url: "questions/public-questions",
-          params: {
-            page: 1,
-            limit,
-            ...(specFilter && { specializationId: specFilter }),
-            ...(skillsFilter &&
-              skillsFilter.length > 0 && {
-                skills: skillsFilter.join(","),
-              }),
-            ...(complexityFilter &&
-              complexityFilter.length > 0 && {
-                complexity: complexityFilter.join(","),
-              }),
-            ...(rateFilter && rateFilter.length > 0 && { rate: rateFilter.join(",") }),
-            ...(collectionId && { collection: collectionId }),
-          },
-        });
+        const url = "questions/public-questions";
 
-        if (firstResult.error) {
-          return { error: firstResult.error };
-        }
+        const params = {
+          limit,
+          ...(specFilter && {
+            specializationId: specFilter,
+          }),
+          ...(skillsFilter &&
+            skillsFilter?.length > 0 && {
+              skills: skillsFilter.join(","),
+            }),
+          ...(complexityFilter &&
+            complexityFilter?.length > 0 && {
+              complexity: complexityFilter.join(","),
+            }),
+          ...(rateFilter &&
+            rateFilter?.length > 0 && {
+              rate: rateFilter.join(","),
+            }),
+          ...(collectionId && {
+            collection: collectionId,
+          }),
+        };
 
-        const firstResponse = firstResult.data as QuestionsResponse;
+        const allQuestions: Question[] = [];
 
-        const allQuestions = [...firstResponse.data];
+        let totalPages = 1;
 
-        const totalPages = Math.ceil(firstResponse.total / firstResponse.limit);
-
-        for (let page = 2; page <= totalPages; page++) {
+        for (let page = 1; page <= totalPages; page++) {
           const result = await baseQuery({
-            url: "questions/public-questions",
+            url,
             params: {
+              ...params,
               page,
-              limit,
-              ...(specFilter && { specializationId: specFilter }),
-              ...(skillsFilter &&
-                skillsFilter.length > 0 && {
-                  skills: skillsFilter.join(","),
-                }),
-              ...(complexityFilter &&
-                complexityFilter.length > 0 && {
-                  complexity: complexityFilter.join(","),
-                }),
-              ...(rateFilter && rateFilter.length > 0 && { rate: rateFilter.join(",") }),
-              ...(collectionId && { collection: collectionId }),
             },
           });
 
@@ -76,6 +67,10 @@ export const questionsApi = baseApi.injectEndpoints({
           const response = result.data as QuestionsResponse;
 
           allQuestions.push(...response.data);
+
+          if (page === 1) {
+            totalPages = Math.ceil(response.total / limit);
+          }
         }
 
         return { data: allQuestions };

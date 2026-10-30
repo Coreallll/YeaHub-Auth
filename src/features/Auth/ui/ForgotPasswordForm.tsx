@@ -1,15 +1,22 @@
 import { type LoginRequest } from "@/features/Auth/api/authApi.ts";
 import { useForm } from "react-hook-form";
 import styles from "@/features/Auth/ui/Form.module.css";
+import type { Dispatch, SetStateAction } from "react";
 
-export default function ForgotPasswordForm() {
+interface ForgotPasswordFormProps {
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function ForgotPasswordForm({ setIsModalOpen }: ForgotPasswordFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginRequest>({ mode: "onBlur", reValidateMode: "onChange" });
+  } = useForm<LoginRequest>({ mode: "onSubmit", reValidateMode: "onChange" });
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <form

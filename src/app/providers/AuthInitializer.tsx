@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks.ts";
 import { useRefreshMutation } from "@/features/Auth/api/authApi.ts";
 import { tokenStorage } from "@/shared/lib/authToken.ts";
 import { loggedIn, loggedOut } from "@/features/Auth/model/authSlice.ts";
-import { baseApi } from "@/shared/api/baseApi.ts";
 
 interface AuthInitializerProps {
   children: ReactNode;
@@ -33,7 +32,7 @@ export default function AuthInitializer({ children }: AuthInitializerProps) {
 
         tokenStorage.remove();
         dispatch(loggedOut());
-        dispatch(baseApi.util.resetApiState());
+        // dispatch(baseApi.util.resetApiState());
       }
     };
     initializeAuth();

@@ -1,8 +1,13 @@
 import { baseApi } from "@/shared/api/baseApi.ts";
 import type { GetAuthResponse, SignUp } from "@/features/Auth/model/types.ts";
 
-export interface LoginRequest {
+export interface LoginFormValues {
   email: string;
+  password: string;
+}
+
+export interface LoginRequest {
+  username: string;
   password: string;
 }
 

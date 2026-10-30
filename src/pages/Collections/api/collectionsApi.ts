@@ -18,7 +18,7 @@ export const collectionsApi = baseApi.injectEndpoints({
             limit,
             ...(specs && { specializations: specs }),
             ...(search && { titleOrDescriptionSearch: search.trim() }),
-            ...(accessFilter && { isFree: accessFilter }),
+            ...(accessFilter !== undefined && { isFree: accessFilter }),
           },
         });
 

@@ -2,19 +2,30 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
-import { tokenStorage } from "../lib/authToken";
+import { tokenStorage } from "@/shared/lib/authToken";
 import { sessionExpired } from "./sessionEvents";
 
+interface RefreshResponse {
+  access_token: string;
+}
+
+// 1. Базовый запрос
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://api.yeatwork.ru/",
   credentials: "include",
 
   prepareHeaders: (headers, { arg }) => {
-    const url = typeof arg === "string" ? arg : arg.url;
+    const url = (typeof arg === "string" ? arg : arg.url).replace(/^\/+/, "").split("?")[0] ?? "";
+
+    const isAuthRequest = ["auth/login", "auth/signUp", "auth/refresh"].includes(url);
+
+    if (isAuthRequest) {
+      return headers;
+    }
 
     const token = tokenStorage.get();
 
-    if (token && !url.includes("auth/refresh")) {
+    if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
 
@@ -22,18 +33,15 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-interface RefreshResponse {
-  access_token: string;
-}
-
 const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
   args,
   api,
   extraOptions,
 ) => {
+  // Выполняем исходный запрос
   let result = await baseQuery(args, api, extraOptions);
 
-  const url = (typeof args === "string" ? args : args.url).replace(/^\/+/, "");
+  const url = (typeof args === "string" ? args : args.url).replace(/^\/+/, "").split("?")[0] ?? "";
 
   const isAuthRequest = ["auth/login", "auth/signUp", "auth/logout", "auth/refresh"].includes(url);
 
@@ -65,7 +73,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
   tokenStorage.remove();
 
   api.dispatch(sessionExpired());
-  api.dispatch(baseApi.util.resetApiState());
+  // api.dispatch(baseApi.util.resetApiState());
 
   return result;
 };
